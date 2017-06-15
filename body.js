@@ -10,15 +10,29 @@ class Body {
 		this.color = color;
 	}
 
-	checkCollision(width, height, bodies = []) {
-		if (width && (this.position.x < 0 || this.position.x > width)) {
-			this.velocity.x *= -1;
-			this.velocity.multiplySelf(0.8);
+	checkCollision(width, height, friction = 1, bodies = []) {
+		if (width) {
+			if (this.position.x < 0) {
+				this.position.x = 0;
+				this.velocity.x *= -1;
+				this.velocity.multiplySelf(friction);
+			} else if (this.position.x > width) {
+				this.position.x = width;
+				this.velocity.x *= -1;
+				this.velocity.multiplySelf(friction);
+			}
 		}
 
-		if (height && (this.position.y < 0 || this.position.y > height)) {
-			this.velocity.y *= -1;
-			this.velocity.multiplySelf(0.8);
+		if (height) {
+			if (this.position.y < 0) {
+				this.position.y = 0;
+				this.velocity.y *= -1;
+				this.velocity.multiplySelf(friction);
+			} else if (this.position.y > height) {
+				this.position.y = height;
+				this.velocity.y *= -1;
+				this.velocity.multiplySelf(friction);
+			}
 		}
 
 		bodies
